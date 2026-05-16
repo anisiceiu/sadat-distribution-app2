@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OrderDisburse.Models;
 using System;
 using System.Collections.Generic;
@@ -200,7 +201,7 @@ namespace OrderDisburse
 
             doc.Add(new Paragraph("SO: " + cmbSO.Text.ToString()));
             doc.Add(new Paragraph("\n"));
-            doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString()));
+            doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString("dd-MM-yyyy")));
             doc.Add(new Paragraph("\n"));
 
             // 📊 Table
@@ -212,7 +213,7 @@ namespace OrderDisburse
             {
                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
                 cell.BackgroundColor = BaseColor.YELLOW;
-                
+
                 table.AddCell(cell);
             }
 
@@ -223,34 +224,24 @@ namespace OrderDisburse
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        if(cell.ColumnIndex == 0)
+                        if (cell.ColumnIndex == 0)
                         {
-                            table.AddCell(cell.EditedFormattedValue.ToString() ?? "");
+                            var productId = cell.Value;
+                            var product = _products.FirstOrDefault(x => x.Id == (int)productId);
+                            table.AddCell(product?.Name ?? "");
                         }
                         else
                         {
                             table.AddCell(cell.Value?.ToString() ?? "");
                         }
-                        
+
                     }
                 }
             }
 
             doc.Add(table);
 
-            // 💰 Total Calculation
-            //decimal grandTotal = 0;
 
-            //foreach (DataGridViewRow row in dgvSales.Rows)
-            //{
-            //    //if (!row.IsNewRow)
-            //    //{
-            //    //    decimal.TryParse(row.Cells["Total"].Value?.ToString(), out decimal t);
-            //    //    grandTotal += t;
-            //    //}
-            //}
-
-            //doc.Add(new Paragraph("\nGrand Total: " + grandTotal.ToString("0.00")));
 
             doc.Close();
 
@@ -275,6 +266,66 @@ namespace OrderDisburse
             PrintPDF(pdfPath);
 
             MessageBox.Show("Invoice printed successfully!");
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Rows
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ProductId", typeof(int));
+            dataTable.Columns.Add("ProductName", typeof(string));
+            dataTable.Columns.Add("PackageName", typeof(string));
+            dataTable.Columns.Add("TotalPiece", typeof(int));
+            dataTable.Columns.Add("OrderCarton", typeof(int));
+            dataTable.Columns.Add("OrderPiece", typeof(int));
+
+            foreach (DataGridViewRow row in dgvSales.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                DataRow dr = dataTable.NewRow();
+                int productId = Convert.ToInt32(row.Cells["ProductId"].Value);
+
+                var product = _products.FirstOrDefault(x => x.Id == productId);
+
+                dr["ProductId"] = row.Cells["ProductId"].Value ?? 0;
+                dr["ProductName"] = product?.Name ?? "";
+                dr["PackageName"] = row.Cells["PackSize"].Value?.ToString() ?? "";
+
+                dr["TotalPiece"] = Convert.ToInt32(row.Cells["TotalPiece"].Value ?? 0);
+                dr["OrderCarton"] = Convert.ToInt32(row.Cells["OrderCarton"].Value ?? 0);
+                dr["OrderPiece"] = Convert.ToInt32(row.Cells["OrderPiece"].Value ?? 0);
+
+                dataTable.Rows.Add(dr);
+            }
+
+            using var db = new AppDbContext();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                var item = new SaleOrder
+                {
+                    ProductId = Convert.ToInt32(row["ProductId"]),
+                    ProductName = row["ProductName"].ToString(),
+                    PackageName = row["PackageName"].ToString(),
+                    TotalPiece = Convert.ToInt32(row["TotalPiece"]),
+                    OrderCarton = Convert.ToInt32(row["OrderCarton"]),
+                    OrderPiece = Convert.ToInt32(row["OrderPiece"]),
+                    SOId = Convert.ToInt32(cmbSO.SelectedValue),
+                    OnDate = dateTimePicker1.Value.Date
+                };
+
+                db.SaleOrders.Add(item);
+            }
+
+            db.SaveChanges();
+
+            MessageBox.Show("Saved successfully!");
+        }
+
+        private void cmbSO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dgvSales.Rows.Clear();
         }
     }
 }

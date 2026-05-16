@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrderDisburse;
 
@@ -10,9 +11,11 @@ using OrderDisburse;
 namespace OrderDisburse.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260516101051_Init_Salesorder")]
+    partial class Init_Salesorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -106,9 +109,6 @@ namespace OrderDisburse.Migrations
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("SOId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("TotalPiece")
                         .HasColumnType("INTEGER");

@@ -127,7 +127,7 @@
             ClientSize = new Size(1047, 450);
             Controls.Add(splitContainer1);
             Name = "SOEntryForm";
-            Text = "SOEntryForm";
+            Text = "SO Entry Form";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);

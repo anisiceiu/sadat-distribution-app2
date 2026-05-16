@@ -136,7 +136,7 @@
             Controls.Add(splitContainer1);
             Name = "ProductEntryForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ProductEntryForm";
+            Text = "Product Entry Form";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);

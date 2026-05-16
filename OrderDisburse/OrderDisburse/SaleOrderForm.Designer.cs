@@ -30,11 +30,12 @@
         {
             dgvSales = new DataGridView();
             splitContainer1 = new SplitContainer();
+            btnSave = new Button();
+            dateTimePicker1 = new DateTimePicker();
             btnPrint = new Button();
             label2 = new Label();
             label1 = new Label();
             cmbSO = new ComboBox();
-            dateTimePicker1 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dgvSales).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(btnSave);
             splitContainer1.Panel1.Controls.Add(dateTimePicker1);
             splitContainer1.Panel1.Controls.Add(btnPrint);
             splitContainer1.Panel1.Controls.Add(label2);
@@ -76,9 +78,27 @@
             splitContainer1.SplitterDistance = 122;
             splitContainer1.TabIndex = 1;
             // 
+            // btnSave
+            // 
+            btnSave.Location = new Point(917, 43);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(94, 29);
+            btnSave.TabIndex = 6;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
+            dateTimePicker1.Location = new Point(539, 42);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 5;
+            // 
             // btnPrint
             // 
-            btnPrint.Location = new Point(944, 39);
+            btnPrint.Location = new Point(1032, 42);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(94, 29);
             btnPrint.TabIndex = 4;
@@ -111,14 +131,7 @@
             cmbSO.Name = "cmbSO";
             cmbSO.Size = new Size(151, 28);
             cmbSO.TabIndex = 0;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(539, 42);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(250, 27);
-            dateTimePicker1.TabIndex = 5;
+            cmbSO.SelectedIndexChanged += cmbSO_SelectedIndexChanged;
             // 
             // SaleOrderForm
             // 
@@ -127,7 +140,7 @@
             ClientSize = new Size(1138, 507);
             Controls.Add(splitContainer1);
             Name = "SaleOrderForm";
-            Text = "SaleOrderForm";
+            Text = "Sale Order Form";
             WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)dgvSales).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
@@ -147,5 +160,6 @@
         private ComboBox cmbSO;
         private Button btnPrint;
         private DateTimePicker dateTimePicker1;
+        private Button btnSave;
     }
 }

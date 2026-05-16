@@ -145,7 +145,7 @@
             ClientSize = new Size(1057, 450);
             Controls.Add(splitContainer1);
             Name = "PackageEntryForm";
-            Text = "PackageEntryForm";
+            Text = "Package Entry Form";
             ((System.ComponentModel.ISupportInitialize)dgvPackages).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
