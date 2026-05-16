@@ -30,11 +30,11 @@
         {
             dgvSales = new DataGridView();
             splitContainer1 = new SplitContainer();
-            textBox1 = new TextBox();
+            btnPrint = new Button();
             label2 = new Label();
             label1 = new Label();
             cmbSO = new ComboBox();
-            btnPrint = new Button();
+            dateTimePicker1 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dgvSales).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -52,6 +52,7 @@
             dgvSales.Size = new Size(1138, 381);
             dgvSales.TabIndex = 0;
             dgvSales.CellValueChanged += dgvSales_CellValueChanged;
+            dgvSales.EditingControlShowing += dgvSales_EditingControlShowing;
             // 
             // splitContainer1
             // 
@@ -62,8 +63,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(dateTimePicker1);
             splitContainer1.Panel1.Controls.Add(btnPrint);
-            splitContainer1.Panel1.Controls.Add(textBox1);
             splitContainer1.Panel1.Controls.Add(label2);
             splitContainer1.Panel1.Controls.Add(label1);
             splitContainer1.Panel1.Controls.Add(cmbSO);
@@ -75,12 +76,15 @@
             splitContainer1.SplitterDistance = 122;
             splitContainer1.TabIndex = 1;
             // 
-            // textBox1
+            // btnPrint
             // 
-            textBox1.Location = new Point(528, 42);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(162, 27);
-            textBox1.TabIndex = 3;
+            btnPrint.Location = new Point(944, 39);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(94, 29);
+            btnPrint.TabIndex = 4;
+            btnPrint.Text = "Print Pdf";
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
             // 
             // label2
             // 
@@ -108,15 +112,13 @@
             cmbSO.Size = new Size(151, 28);
             cmbSO.TabIndex = 0;
             // 
-            // btnPrint
+            // dateTimePicker1
             // 
-            btnPrint.Location = new Point(944, 39);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(94, 29);
-            btnPrint.TabIndex = 4;
-            btnPrint.Text = "Print Pdf";
-            btnPrint.UseVisualStyleBackColor = true;
-            btnPrint.Click += btnPrint_Click;
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
+            dateTimePicker1.Location = new Point(539, 42);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 5;
             // 
             // SaleOrderForm
             // 
@@ -140,10 +142,10 @@
 
         private DataGridView dgvSales;
         private SplitContainer splitContainer1;
-        private TextBox textBox1;
         private Label label2;
         private Label label1;
         private ComboBox cmbSO;
         private Button btnPrint;
+        private DateTimePicker dateTimePicker1;
     }
 }

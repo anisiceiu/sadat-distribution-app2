@@ -198,7 +198,9 @@ namespace OrderDisburse
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
 
-            doc.Add(new Paragraph("Date: " + DateTime.Now.ToString()));
+            doc.Add(new Paragraph("SO: " + cmbSO.Text.ToString()));
+            doc.Add(new Paragraph("\n"));
+            doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString()));
             doc.Add(new Paragraph("\n"));
 
             // 📊 Table
@@ -209,7 +211,8 @@ namespace OrderDisburse
             foreach (DataGridViewColumn column in dgvSales.Columns)
             {
                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
-                cell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                cell.BackgroundColor = BaseColor.YELLOW;
+                
                 table.AddCell(cell);
             }
 
@@ -224,7 +227,11 @@ namespace OrderDisburse
                         {
                             table.AddCell(cell.EditedFormattedValue.ToString() ?? "");
                         }
-                        table.AddCell(cell.Value?.ToString() ?? "");
+                        else
+                        {
+                            table.AddCell(cell.Value?.ToString() ?? "");
+                        }
+                        
                     }
                 }
             }
