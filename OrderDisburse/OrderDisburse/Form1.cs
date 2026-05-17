@@ -162,6 +162,11 @@ namespace OrderDisburse
                 table.AddCell(cell);
             }
 
+            iTextSharp.text.Font boldRedFont = FontFactory.GetFont(
+                    FontFactory.HELVETICA_BOLD,
+                    10,
+                    BaseColor.RED
+                );
             // Rows
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -170,8 +175,18 @@ namespace OrderDisburse
                     foreach (DataGridViewCell cell in row.Cells)
                     {
 
-                        table.AddCell(cell.Value?.ToString() ?? "");
+                        
+                        if (cell.ColumnIndex == 3)
+                        {
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", boldRedFont));
+                            //pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT;
 
+                            table.AddCell(pdfCell);
+                        }
+                        else
+                        {
+                            table.AddCell(cell.Value?.ToString() ?? "");
+                        }
 
                     }
                 }
