@@ -120,7 +120,7 @@ namespace OrderDisburse
 
         private string GenerateInvoicePDF()
         {
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Summary_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".pdf");
 
             iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4);
