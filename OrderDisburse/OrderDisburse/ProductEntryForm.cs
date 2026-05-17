@@ -99,7 +99,7 @@ namespace OrderDisburse
 
             if (exists)
             {
-                MessageBox.Show("Package already exists");
+                MessageBox.Show("Product already exists");
                 return;
             }
 
