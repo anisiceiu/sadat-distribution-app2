@@ -164,7 +164,7 @@ namespace OrderDisburse
 
             iTextSharp.text.Font boldRedFont = FontFactory.GetFont(
                     FontFactory.HELVETICA_BOLD,
-                    10,
+                    12,
                     BaseColor.RED
                 );
             // Rows
