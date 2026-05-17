@@ -50,8 +50,8 @@ namespace OrderDisburse
             var companies = db.Companies
                 .Select(p => new Company
                 {
-                   Id = p.Id,
-                   CompanyName = p.CompanyName
+                    Id = p.Id,
+                    CompanyName = p.CompanyName
                 })
                 .ToList();
 
@@ -143,7 +143,7 @@ namespace OrderDisburse
                 doc.Add(companyName);
             }
 
-            
+
 
             doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString("dd-MM-yyyy") + " - " +
                                 dateTimePicker2.Value.ToString("dd-MM-yyyy")));
@@ -179,7 +179,7 @@ namespace OrderDisburse
 
             doc.Add(table);
 
-            
+
             var prg2 = new Paragraph("\nReceived By\n");
             prg2.Alignment = Element.ALIGN_RIGHT;
             doc.Add(prg2);
@@ -214,6 +214,11 @@ namespace OrderDisburse
         {
             CompanyEntryForm companyEntryForm = new CompanyEntryForm();
             companyEntryForm.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 

@@ -31,6 +31,7 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             entryFormsToolStripMenuItem = new ToolStripMenuItem();
+            companyEntryToolStripMenuItem = new ToolStripMenuItem();
             cartonSizeUnitEntryToolStripMenuItem = new ToolStripMenuItem();
             productEntryToolStripMenuItem = new ToolStripMenuItem();
             sOEntryToolStripMenuItem = new ToolStripMenuItem();
@@ -46,7 +47,7 @@
             label2 = new Label();
             label1 = new Label();
             dataGridView1 = new DataGridView();
-            companyEntryToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // fileToolStripMenuItem
             // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(46, 24);
             fileToolStripMenuItem.Text = "&File";
@@ -78,31 +80,38 @@
             entryFormsToolStripMenuItem.Size = new Size(100, 24);
             entryFormsToolStripMenuItem.Text = "&Entry Forms";
             // 
+            // companyEntryToolStripMenuItem
+            // 
+            companyEntryToolStripMenuItem.Name = "companyEntryToolStripMenuItem";
+            companyEntryToolStripMenuItem.Size = new Size(218, 26);
+            companyEntryToolStripMenuItem.Text = "Company Entry";
+            companyEntryToolStripMenuItem.Click += companyEntryToolStripMenuItem_Click;
+            // 
             // cartonSizeUnitEntryToolStripMenuItem
             // 
             cartonSizeUnitEntryToolStripMenuItem.Name = "cartonSizeUnitEntryToolStripMenuItem";
-            cartonSizeUnitEntryToolStripMenuItem.Size = new Size(224, 26);
+            cartonSizeUnitEntryToolStripMenuItem.Size = new Size(218, 26);
             cartonSizeUnitEntryToolStripMenuItem.Text = "Package Size Entry ";
             cartonSizeUnitEntryToolStripMenuItem.Click += cartonSizeUnitEntryToolStripMenuItem_Click;
             // 
             // productEntryToolStripMenuItem
             // 
             productEntryToolStripMenuItem.Name = "productEntryToolStripMenuItem";
-            productEntryToolStripMenuItem.Size = new Size(224, 26);
+            productEntryToolStripMenuItem.Size = new Size(218, 26);
             productEntryToolStripMenuItem.Text = "Product Entry";
             productEntryToolStripMenuItem.Click += productEntryToolStripMenuItem_Click;
             // 
             // sOEntryToolStripMenuItem
             // 
             sOEntryToolStripMenuItem.Name = "sOEntryToolStripMenuItem";
-            sOEntryToolStripMenuItem.Size = new Size(224, 26);
+            sOEntryToolStripMenuItem.Size = new Size(218, 26);
             sOEntryToolStripMenuItem.Text = "SO Entry";
             sOEntryToolStripMenuItem.Click += sOEntryToolStripMenuItem_Click;
             // 
             // orderEntryToolStripMenuItem
             // 
             orderEntryToolStripMenuItem.Name = "orderEntryToolStripMenuItem";
-            orderEntryToolStripMenuItem.Size = new Size(224, 26);
+            orderEntryToolStripMenuItem.Size = new Size(218, 26);
             orderEntryToolStripMenuItem.Text = "Order Entry";
             orderEntryToolStripMenuItem.Click += orderEntryToolStripMenuItem_Click;
             // 
@@ -222,12 +231,12 @@
             dataGridView1.Size = new Size(1191, 526);
             dataGridView1.TabIndex = 0;
             // 
-            // companyEntryToolStripMenuItem
+            // exitToolStripMenuItem
             // 
-            companyEntryToolStripMenuItem.Name = "companyEntryToolStripMenuItem";
-            companyEntryToolStripMenuItem.Size = new Size(224, 26);
-            companyEntryToolStripMenuItem.Text = "Company Entry";
-            companyEntryToolStripMenuItem.Click += companyEntryToolStripMenuItem_Click;
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Text = "E&xit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -273,5 +282,6 @@
         private Label lblCompany;
         private ComboBox cmbCompany;
         private ToolStripMenuItem companyEntryToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
     }
 }
