@@ -18,6 +18,30 @@ namespace OrderDisburse
             InitializeComponent();
             LoadPackagesToCombo();
             LoadProducts();
+            LoadCompanyCombo();
+        }
+
+        private void LoadCompanyCombo()
+        {
+            using var db = new AppDbContext();
+
+            var companies = db.Companies
+                .Select(p => new Company
+                {
+                    Id = p.Id,
+                    CompanyName = p.CompanyName
+                })
+                .ToList();
+
+            cmbCompany.DataSource = companies;
+            cmbCompany.DisplayMember = "CompanyName";
+            cmbCompany.ValueMember = "Id";
+
+
+            // Enable typeahead
+            cmbCompany.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbCompany.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
         private void LoadPackagesToCombo()
         {
@@ -53,7 +77,22 @@ namespace OrderDisburse
                 return;
             }
 
-            
+
+            var company = cmbCompany.SelectedItem as Company;
+
+            if (string.IsNullOrWhiteSpace(company?.CompanyName))
+            {
+                MessageBox.Show("Company name is required");
+                return;
+            }
+
+
+            if (Convert.ToInt32(cmbPackage.SelectedValue) == 0)
+            {
+                MessageBox.Show("Package name is required");
+                return;
+            }
+
 
             bool exists = db.Products
                 .Any(x => x.Name.ToLower() == productName.ToLower());
@@ -67,8 +106,12 @@ namespace OrderDisburse
             var product = new Product
             {
                 Name = productName,
-                PackageId = Convert.ToInt32(cmbPackage.SelectedValue)
+                PackageId = Convert.ToInt32(cmbPackage.SelectedValue),
+                CompanyId = Convert.ToInt32(cmbCompany.SelectedValue) 
+
             };
+
+
 
             db.Products.Add(product);
 

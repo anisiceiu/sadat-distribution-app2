@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             splitContainer1 = new SplitContainer();
+            cmbCompany = new ComboBox();
+            label3 = new Label();
             cmbPackage = new ComboBox();
             btnSave = new Button();
             txtProductName = new TextBox();
@@ -53,6 +55,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(cmbCompany);
+            splitContainer1.Panel1.Controls.Add(label3);
             splitContainer1.Panel1.Controls.Add(cmbPackage);
             splitContainer1.Panel1.Controls.Add(btnSave);
             splitContainer1.Panel1.Controls.Add(txtProductName);
@@ -66,11 +70,30 @@
             splitContainer1.SplitterDistance = 436;
             splitContainer1.TabIndex = 17;
             // 
+            // cmbCompany
+            // 
+            cmbCompany.DisplayMember = "Id";
+            cmbCompany.FormattingEnabled = true;
+            cmbCompany.Location = new Point(142, 34);
+            cmbCompany.Name = "cmbCompany";
+            cmbCompany.Size = new Size(266, 28);
+            cmbCompany.TabIndex = 25;
+            cmbCompany.ValueMember = "Id";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(24, 34);
+            label3.Name = "label3";
+            label3.Size = new Size(116, 20);
+            label3.TabIndex = 24;
+            label3.Text = "Company Name";
+            // 
             // cmbPackage
             // 
             cmbPackage.DisplayMember = "Id";
             cmbPackage.FormattingEnabled = true;
-            cmbPackage.Location = new Point(134, 72);
+            cmbPackage.Location = new Point(142, 117);
             cmbPackage.Name = "cmbPackage";
             cmbPackage.Size = new Size(151, 28);
             cmbPackage.TabIndex = 23;
@@ -78,7 +101,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(306, 123);
+            btnSave.Location = new Point(306, 168);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
             btnSave.TabIndex = 22;
@@ -88,7 +111,7 @@
             // 
             // txtProductName
             // 
-            txtProductName.Location = new Point(134, 32);
+            txtProductName.Location = new Point(142, 77);
             txtProductName.Name = "txtProductName";
             txtProductName.Size = new Size(266, 27);
             txtProductName.TabIndex = 19;
@@ -96,7 +119,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(24, 75);
+            label2.Location = new Point(24, 120);
             label2.Name = "label2";
             label2.Size = new Size(63, 20);
             label2.TabIndex = 17;
@@ -105,7 +128,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(24, 32);
+            label1.Location = new Point(24, 77);
             label1.Name = "label1";
             label1.Size = new Size(104, 20);
             label1.TabIndex = 16;
@@ -158,5 +181,7 @@
         private DataGridView dgvProducts;
         private ComboBox cmbPackage;
         private BindingSource packageBindingSource;
+        private ComboBox cmbCompany;
+        private Label label3;
     }
 }

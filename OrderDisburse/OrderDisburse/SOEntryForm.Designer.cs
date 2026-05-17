@@ -35,6 +35,8 @@
             label2 = new Label();
             label1 = new Label();
             dgvSOs = new DataGridView();
+            label3 = new Label();
+            cmbCompany = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -50,6 +52,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(cmbCompany);
+            splitContainer1.Panel1.Controls.Add(label3);
             splitContainer1.Panel1.Controls.Add(txtSOContactNo);
             splitContainer1.Panel1.Controls.Add(btnSave);
             splitContainer1.Panel1.Controls.Add(txtSOName);
@@ -66,7 +70,7 @@
             // 
             // txtSOContactNo
             // 
-            txtSOContactNo.Location = new Point(142, 73);
+            txtSOContactNo.Location = new Point(148, 122);
             txtSOContactNo.Name = "txtSOContactNo";
             txtSOContactNo.Size = new Size(173, 27);
             txtSOContactNo.TabIndex = 23;
@@ -74,7 +78,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(221, 127);
+            btnSave.Location = new Point(227, 176);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
             btnSave.TabIndex = 22;
@@ -84,7 +88,7 @@
             // 
             // txtSOName
             // 
-            txtSOName.Location = new Point(142, 30);
+            txtSOName.Location = new Point(148, 79);
             txtSOName.Name = "txtSOName";
             txtSOName.Size = new Size(173, 27);
             txtSOName.TabIndex = 19;
@@ -92,7 +96,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(29, 73);
+            label2.Location = new Point(21, 122);
             label2.Name = "label2";
             label2.Size = new Size(84, 20);
             label2.TabIndex = 17;
@@ -101,7 +105,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(29, 30);
+            label1.Location = new Point(21, 79);
             label1.Name = "label1";
             label1.Size = new Size(72, 20);
             label1.TabIndex = 16;
@@ -120,6 +124,23 @@
             dgvSOs.RowHeadersWidth = 51;
             dgvSOs.Size = new Size(694, 450);
             dgvSOs.TabIndex = 7;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(21, 35);
+            label3.Name = "label3";
+            label3.Size = new Size(116, 20);
+            label3.TabIndex = 24;
+            label3.Text = "Company Name";
+            // 
+            // cmbCompany
+            // 
+            cmbCompany.FormattingEnabled = true;
+            cmbCompany.Location = new Point(148, 35);
+            cmbCompany.Name = "cmbCompany";
+            cmbCompany.Size = new Size(173, 28);
+            cmbCompany.TabIndex = 25;
             // 
             // SOEntryForm
             // 
@@ -152,5 +173,7 @@
         private Label label1;
         private DataGridView dgvSOs;
         private TextBox txtSOContactNo;
+        private ComboBox cmbCompany;
+        private Label label3;
     }
 }

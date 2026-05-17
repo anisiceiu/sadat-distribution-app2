@@ -17,8 +17,31 @@ namespace OrderDisburse
         {
             InitializeComponent();
             LoadSOs();
+            LoadCompanyCombo();
         }
 
+        private void LoadCompanyCombo()
+        {
+            using var db = new AppDbContext();
+
+            var companies = db.Companies
+                .Select(p => new Company
+                {
+                    Id = p.Id,
+                    CompanyName = p.CompanyName
+                })
+                .ToList();
+
+            cmbCompany.DataSource = companies;
+            cmbCompany.DisplayMember = "CompanyName";
+            cmbCompany.ValueMember = "Id";
+
+
+            // Enable typeahead
+            cmbCompany.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbCompany.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             
@@ -59,7 +82,11 @@ namespace OrderDisburse
                 return;
             }
 
-
+            if (Convert.ToInt32(cmbCompany.SelectedValue) == 0)
+            {
+                MessageBox.Show("Company name is required");
+                return;
+            }
 
             bool exists = db.SOs
                 .Any(x => x.Name.ToLower() == soname.ToLower());
@@ -74,6 +101,7 @@ namespace OrderDisburse
             {
                 Name = soname,
                 ContactNo = txtSOContactNo.Text.Trim(),
+                CompanyId = Convert.ToInt32(cmbCompany.SelectedValue)
             };
 
             db.SOs.Add(so);
