@@ -37,13 +37,16 @@
             orderEntryToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
+            lblCompany = new Label();
+            cmbCompany = new ComboBox();
+            button1 = new Button();
             btnGo = new Button();
             dateTimePicker2 = new DateTimePicker();
             dateTimePicker1 = new DateTimePicker();
             label2 = new Label();
             label1 = new Label();
             dataGridView1 = new DataGridView();
-            button1 = new Button();
+            companyEntryToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -70,7 +73,7 @@
             // 
             // entryFormsToolStripMenuItem
             // 
-            entryFormsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cartonSizeUnitEntryToolStripMenuItem, productEntryToolStripMenuItem, sOEntryToolStripMenuItem, orderEntryToolStripMenuItem });
+            entryFormsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { companyEntryToolStripMenuItem, cartonSizeUnitEntryToolStripMenuItem, productEntryToolStripMenuItem, sOEntryToolStripMenuItem, orderEntryToolStripMenuItem });
             entryFormsToolStripMenuItem.Name = "entryFormsToolStripMenuItem";
             entryFormsToolStripMenuItem.Size = new Size(100, 24);
             entryFormsToolStripMenuItem.Text = "&Entry Forms";
@@ -118,6 +121,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(lblCompany);
+            splitContainer1.Panel1.Controls.Add(cmbCompany);
             splitContainer1.Panel1.Controls.Add(button1);
             splitContainer1.Panel1.Controls.Add(btnGo);
             splitContainer1.Panel1.Controls.Add(dateTimePicker2);
@@ -132,9 +137,36 @@
             splitContainer1.SplitterDistance = 117;
             splitContainer1.TabIndex = 1;
             // 
+            // lblCompany
+            // 
+            lblCompany.AutoSize = true;
+            lblCompany.Location = new Point(21, 34);
+            lblCompany.Name = "lblCompany";
+            lblCompany.Size = new Size(72, 20);
+            lblCompany.TabIndex = 6;
+            lblCompany.Text = "Company";
+            // 
+            // cmbCompany
+            // 
+            cmbCompany.FormattingEnabled = true;
+            cmbCompany.Location = new Point(99, 34);
+            cmbCompany.Name = "cmbCompany";
+            cmbCompany.Size = new Size(227, 28);
+            cmbCompany.TabIndex = 7;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(991, 31);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 5;
+            button1.Text = "Print";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // btnGo
             // 
-            btnGo.Location = new Point(725, 34);
+            btnGo.Location = new Point(855, 30);
             btnGo.Name = "btnGo";
             btnGo.Size = new Size(94, 29);
             btnGo.TabIndex = 4;
@@ -145,23 +177,23 @@
             // dateTimePicker2
             // 
             dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(432, 33);
+            dateTimePicker2.Location = new Point(655, 32);
             dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(250, 27);
+            dateTimePicker2.Size = new Size(151, 27);
             dateTimePicker2.TabIndex = 3;
             // 
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(97, 33);
+            dateTimePicker1.Location = new Point(417, 34);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.Size = new Size(133, 27);
             dateTimePicker1.TabIndex = 2;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(380, 33);
+            label2.Location = new Point(597, 35);
             label2.Name = "label2";
             label2.Size = new Size(25, 20);
             label2.TabIndex = 1;
@@ -170,7 +202,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(48, 33);
+            label1.Location = new Point(350, 35);
             label1.Name = "label1";
             label1.Size = new Size(43, 20);
             label1.TabIndex = 0;
@@ -180,6 +212,7 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.BackgroundColor = SystemColors.ControlLightLight;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
@@ -189,15 +222,12 @@
             dataGridView1.Size = new Size(1191, 526);
             dataGridView1.TabIndex = 0;
             // 
-            // button1
+            // companyEntryToolStripMenuItem
             // 
-            button1.Location = new Point(916, 35);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 5;
-            button1.Text = "Print";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            companyEntryToolStripMenuItem.Name = "companyEntryToolStripMenuItem";
+            companyEntryToolStripMenuItem.Size = new Size(224, 26);
+            companyEntryToolStripMenuItem.Text = "Company Entry";
+            companyEntryToolStripMenuItem.Click += companyEntryToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -240,5 +270,8 @@
         private Button btnGo;
         private DataGridView dataGridView1;
         private Button button1;
+        private Label lblCompany;
+        private ComboBox cmbCompany;
+        private ToolStripMenuItem companyEntryToolStripMenuItem;
     }
 }

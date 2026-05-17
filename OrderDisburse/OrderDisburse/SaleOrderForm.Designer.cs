@@ -45,6 +45,7 @@
             // 
             // dgvSales
             // 
+            dgvSales.BackgroundColor = SystemColors.ControlLightLight;
             dgvSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSales.Dock = DockStyle.Fill;
             dgvSales.Location = new Point(0, 0);

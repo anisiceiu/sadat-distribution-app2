@@ -48,6 +48,7 @@
             // 
             dgvPackages.AllowUserToAddRows = false;
             dgvPackages.AllowUserToDeleteRows = false;
+            dgvPackages.BackgroundColor = SystemColors.ControlLightLight;
             dgvPackages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPackages.Dock = DockStyle.Fill;
             dgvPackages.Location = new Point(0, 0);

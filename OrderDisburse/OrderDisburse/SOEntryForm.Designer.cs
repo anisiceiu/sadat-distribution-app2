@@ -111,6 +111,7 @@
             // 
             dgvSOs.AllowUserToAddRows = false;
             dgvSOs.AllowUserToDeleteRows = false;
+            dgvSOs.BackgroundColor = SystemColors.ControlLightLight;
             dgvSOs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSOs.Dock = DockStyle.Fill;
             dgvSOs.Location = new Point(0, 0);

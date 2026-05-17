@@ -27,6 +27,7 @@ namespace OrderDisburse
         private void ClearForm()
         {
             txtSOName.Clear();
+            txtSOContactNo.Clear();
         }
 
         public void LoadSOs()

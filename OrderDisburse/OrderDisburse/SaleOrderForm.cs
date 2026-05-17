@@ -89,13 +89,13 @@ namespace OrderDisburse
 
 
 
-            // Price Column
-            dgvSales.Columns.Add("ReturnOrderCarton", "Return Order Carton");
+            //// Price Column
+            //dgvSales.Columns.Add("ReturnOrderCarton", "Return Order Carton");
 
-            dgvSales.Columns.Add("ReturnOrderPiece", "Return Order Piece");
+            //dgvSales.Columns.Add("ReturnOrderPiece", "Return Order Piece");
 
-            // Total Column
-            dgvSales.Columns.Add("ReturnTotalPiece", "Return Total Piece");
+            //// Total Column
+            //dgvSales.Columns.Add("ReturnTotalPiece", "Return Total Piece");
         }
 
         private void dgvSales_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)

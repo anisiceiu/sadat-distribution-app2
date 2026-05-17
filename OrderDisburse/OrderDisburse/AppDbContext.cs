@@ -14,6 +14,7 @@ namespace OrderDisburse
         public DbSet<Package>  Packages { get; set; }
         public DbSet<SO>  SOs { get; set; }
         public DbSet<SaleOrder> SaleOrders { get; set; }
+        public DbSet<Company> Companies { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=app.db");

@@ -17,5 +17,6 @@ namespace OrderDisburse.Models
         public int OrderPiece { get; set; }
         public int SOId { get; set; }
         public DateTime OnDate { get; set; }
+        public int CompanyId { get; set; }
     }
 }

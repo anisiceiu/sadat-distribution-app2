@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderDisburse.Models
 {
-    public class SO
+    public class Company
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string ContactNo { get; set; }= string.Empty;
-        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
     }
 }
