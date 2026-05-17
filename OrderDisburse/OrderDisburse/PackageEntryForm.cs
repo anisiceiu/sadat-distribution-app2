@@ -37,6 +37,19 @@ namespace OrderDisburse
             using var db = new AppDbContext();
 
             dgvPackages.DataSource = db.Packages.ToList();
+            // Prevent duplicate columns
+            //if (!dgvPackages.Columns.Contains("Delete"))
+            //{
+            //    DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+
+            //    btn.Name = "Delete";
+            //    btn.HeaderText = "Action";
+            //    btn.Text = "Delete";
+            //    btn.DefaultCellStyle.ForeColor = Color.Red;
+            //    btn.UseColumnTextForButtonValue = true;
+
+            //    dgvPackages.Columns.Add(btn);
+            //}
         }
 
         private void btnSave_Click_1(object sender, EventArgs e)

@@ -54,7 +54,7 @@
             dgvPackages.Name = "dgvPackages";
             dgvPackages.ReadOnly = true;
             dgvPackages.RowHeadersWidth = 51;
-            dgvPackages.Size = new Size(701, 450);
+            dgvPackages.Size = new Size(745, 602);
             dgvPackages.TabIndex = 7;
             // 
             // splitContainer1
@@ -76,8 +76,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvPackages);
-            splitContainer1.Size = new Size(1057, 450);
-            splitContainer1.SplitterDistance = 352;
+            splitContainer1.Size = new Size(1122, 602);
+            splitContainer1.SplitterDistance = 373;
             splitContainer1.TabIndex = 16;
             // 
             // btnSave
@@ -142,9 +142,10 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1057, 450);
+            ClientSize = new Size(1122, 602);
             Controls.Add(splitContainer1);
             Name = "PackageEntryForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Package Entry Form";
             ((System.ComponentModel.ISupportInitialize)dgvPackages).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
