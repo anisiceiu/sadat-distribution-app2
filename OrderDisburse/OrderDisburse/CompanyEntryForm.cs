@@ -24,6 +24,14 @@ namespace OrderDisburse
             AppDbContext dbContext = new AppDbContext();
             Company company = new Company();
             company.CompanyName = txtCompany.Text;
+            bool exists = dbContext.Companies
+                .Any(x => x.CompanyName.ToLower() == company.CompanyName.ToLower());
+
+            if (exists)
+            {
+                MessageBox.Show("Company already exists");
+                return;
+            }
 
             dbContext.Add(company);
             dbContext.SaveChanges();
