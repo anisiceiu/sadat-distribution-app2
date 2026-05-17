@@ -30,6 +30,8 @@
         {
             dgvSales = new DataGridView();
             splitContainer1 = new SplitContainer();
+            cmbCompany = new ComboBox();
+            label3 = new Label();
             btnSave = new Button();
             dateTimePicker1 = new DateTimePicker();
             btnPrint = new Button();
@@ -65,6 +67,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(cmbCompany);
+            splitContainer1.Panel1.Controls.Add(label3);
             splitContainer1.Panel1.Controls.Add(btnSave);
             splitContainer1.Panel1.Controls.Add(dateTimePicker1);
             splitContainer1.Panel1.Controls.Add(btnPrint);
@@ -79,6 +83,24 @@
             splitContainer1.SplitterDistance = 122;
             splitContainer1.TabIndex = 1;
             // 
+            // cmbCompany
+            // 
+            cmbCompany.FormattingEnabled = true;
+            cmbCompany.Location = new Point(111, 40);
+            cmbCompany.Name = "cmbCompany";
+            cmbCompany.Size = new Size(224, 28);
+            cmbCompany.TabIndex = 8;
+            cmbCompany.SelectedValueChanged += cmbCompany_SelectedValueChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(23, 43);
+            label3.Name = "label3";
+            label3.Size = new Size(72, 20);
+            label3.TabIndex = 7;
+            label3.Text = "Company";
+            // 
             // btnSave
             // 
             btnSave.Location = new Point(917, 43);
@@ -92,9 +114,9 @@
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(539, 42);
+            dateTimePicker1.Location = new Point(694, 41);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.Size = new Size(136, 27);
             dateTimePicker1.TabIndex = 5;
             // 
             // btnPrint
@@ -110,7 +132,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(461, 43);
+            label2.Location = new Point(633, 44);
             label2.Name = "label2";
             label2.Size = new Size(41, 20);
             label2.TabIndex = 2;
@@ -119,7 +141,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(59, 43);
+            label1.Location = new Point(354, 44);
             label1.Name = "label1";
             label1.Size = new Size(72, 20);
             label1.TabIndex = 1;
@@ -128,7 +150,7 @@
             // cmbSO
             // 
             cmbSO.FormattingEnabled = true;
-            cmbSO.Location = new Point(168, 40);
+            cmbSO.Location = new Point(451, 40);
             cmbSO.Name = "cmbSO";
             cmbSO.Size = new Size(151, 28);
             cmbSO.TabIndex = 0;
@@ -162,5 +184,7 @@
         private Button btnPrint;
         private DateTimePicker dateTimePicker1;
         private Button btnSave;
+        private ComboBox cmbCompany;
+        private Label label3;
     }
 }

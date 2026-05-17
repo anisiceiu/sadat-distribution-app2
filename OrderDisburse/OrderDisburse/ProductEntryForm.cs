@@ -135,6 +135,44 @@ namespace OrderDisburse
             using var db = new AppDbContext();
 
             dgvProducts.DataSource = db.Products.ToList();
+
+            if (!dgvProducts.Columns.Contains("Delete"))
+            {
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                btnDelete.Name = "Delete";
+                btnDelete.HeaderText = "Action";
+                btnDelete.Text = "Delete";
+                btnDelete.UseColumnTextForButtonValue = true;
+
+                dgvProducts.Columns.Add(btnDelete);
+                dgvProducts.CellClick += DgvProducts_CellClick;
+            }
+        }
+
+        private void DgvProducts_CellClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvProducts.Columns[e.ColumnIndex].Name == "Delete")
+            {
+
+                DialogResult result = MessageBox.Show(
+                 "Are you sure want to delete the product?",
+                 "Delete",
+                 MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    
+                    var item = (Product)dgvProducts.Rows[e.RowIndex].DataBoundItem;
+
+                    AppDbContext context = new AppDbContext();
+                    context.Products.Remove(item);
+                    context.SaveChanges();
+
+                    LoadProducts();
+
+                    MessageBox.Show("Product Deleted successfully");
+                }
+            }
         }
     }
 }

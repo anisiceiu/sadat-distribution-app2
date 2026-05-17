@@ -23,9 +23,33 @@ namespace OrderDisburse
         public SaleOrderForm()
         {
             InitializeComponent();
-            LoadSOToCombo();
-            LoadProducts();
-            SetupGrid();
+            //LoadSOToCombo();
+            //LoadProducts();
+            //SetupGrid();
+            LoadCompanyCombo();
+        }
+
+        private void LoadCompanyCombo()
+        {
+            using var db = new AppDbContext();
+
+            var companies = db.Companies
+                .Select(p => new Company
+                {
+                    Id = p.Id,
+                    CompanyName = p.CompanyName
+                })
+                .ToList();
+
+            cmbCompany.DataSource = companies;
+            cmbCompany.DisplayMember = "CompanyName";
+            cmbCompany.ValueMember = "Id";
+
+
+            // Enable typeahead
+            cmbCompany.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbCompany.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         private List<Product> _products;
@@ -33,14 +57,16 @@ namespace OrderDisburse
         private void LoadProducts()
         {
             using var db = new AppDbContext();
-            _products = db.Products.ToList();
+            _products = db.Products.Where(p=> p.CompanyId == Convert.ToInt32((cmbCompany.SelectedItem as Company).Id)).ToList();
+            SetupGrid();
         }
 
         private void LoadSOToCombo()
         {
             using var db = new AppDbContext();
 
-            var packages = db.SOs
+            var sos = db.SOs
+                .Where(so => so.CompanyId == Convert.ToInt32((cmbCompany.SelectedItem as Company).Id))
                 .Select(p => new
                 {
                     p.Id,
@@ -48,7 +74,7 @@ namespace OrderDisburse
                 })
                 .ToList();
 
-            cmbSO.DataSource = packages;
+            cmbSO.DataSource = sos;
             cmbSO.DisplayMember = "Name";
             cmbSO.ValueMember = "Id";
 
@@ -194,10 +220,19 @@ namespace OrderDisburse
             doc.Open();
 
             // 🧾 Title
-            var title = new Paragraph("INVOICE\n\n",
+            var title = new Paragraph("INVOICE\n",
                 FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
+
+            if (cmbCompany.SelectedItem != null)
+            {
+                Company cname = (Company)cmbCompany.SelectedItem;
+                var companyName = new Paragraph($"{cname.CompanyName}\n",
+                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                companyName.Alignment = Element.ALIGN_CENTER;
+                doc.Add(companyName);
+            }
 
             doc.Add(new Paragraph("SO: " + cmbSO.Text.ToString()));
             doc.Add(new Paragraph("\n"));
@@ -312,7 +347,8 @@ namespace OrderDisburse
                     OrderCarton = Convert.ToInt32(row["OrderCarton"]),
                     OrderPiece = Convert.ToInt32(row["OrderPiece"]),
                     SOId = Convert.ToInt32(cmbSO.SelectedValue),
-                    OnDate = dateTimePicker1.Value.Date
+                    OnDate = dateTimePicker1.Value.Date,
+                    CompanyId = Convert.ToInt32(cmbCompany.SelectedValue)
                 };
 
                 db.SaleOrders.Add(item);
@@ -326,6 +362,12 @@ namespace OrderDisburse
         private void cmbSO_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvSales.Rows.Clear();
+        }
+
+        private void cmbCompany_SelectedValueChanged(object sender, EventArgs e)
+        {
+            LoadSOToCombo();
+            LoadProducts();
         }
     }
 }
