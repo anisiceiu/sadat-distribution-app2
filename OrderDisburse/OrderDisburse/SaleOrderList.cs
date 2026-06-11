@@ -1,49 +1,27 @@
-using iTextSharp.text;
+﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using OrderDisburse.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OrderDisburse
 {
-    public partial class Form1 : Form
+    public partial class SaleOrderList : Form
     {
-        public Form1()
+        public SaleOrderList()
         {
             InitializeComponent();
-            LoadCompany();
+            LoadCompanyCombo();
         }
 
-        private void cartonSizeUnitEntryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PackageEntryForm packageEntryForm = new PackageEntryForm();
-            packageEntryForm.ShowDialog();
-        }
-
-        private void productEntryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ProductEntryForm productEntryForm = new ProductEntryForm();
-            productEntryForm.ShowDialog();
-        }
-
-        private void sOEntryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SOEntryForm SOEntryForm = new SOEntryForm();
-            SOEntryForm.ShowDialog();
-        }
-
-        private void orderEntryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaleOrderForm saleOrder = new SaleOrderForm();
-            saleOrder.ShowDialog();
-
-
-        }
-
-        private void btnGo_Click(object sender, EventArgs e)
-        {
-            LoadReport();
-        }
-
-        private void LoadCompany()
+        private void LoadCompanyCombo()
         {
             using var db = new AppDbContext();
 
@@ -65,39 +43,58 @@ namespace OrderDisburse
             cmbCompany.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbCompany.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
+
+        private void LoadSOToCombo()
+        {
+            using var db = new AppDbContext();
+
+            var sos = db.SOs
+                .Where(so => so.CompanyId == Convert.ToInt32((cmbCompany.SelectedItem as Company).Id))
+                .Select(p => new SO
+                {
+                   Id= p.Id,
+                    Name = p.Name
+                })
+                .ToList();
+
+            cmbSO.DataSource = sos;
+            cmbSO.DisplayMember = "Name";
+            cmbSO.ValueMember = "Id";
+
+
+            // Enable typeahead
+            cmbSO.DropDownStyle = ComboBoxStyle.DropDown;
+            cmbSO.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbSO.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
+
+        private void cmbCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSOToCombo();
+        }
+
         private void LoadReport()
         {
             DateTime fromDate = dateTimePicker1.Value.Date;
-            DateTime toDate = dateTimePicker2.Value.Date;
+
             int companyId = Convert.ToInt32(cmbCompany.SelectedValue);
 
             using var db = new AppDbContext();
 
             var report = db.SaleOrders
-                .Where(x => x.CompanyId == companyId && x.OnDate.Date >= fromDate &&
-                            x.OnDate.Date <= toDate)
+                .Where(x => x.CompanyId == companyId && x.OnDate.Date >= fromDate)
                 .Join(db.Packages,
                     o => o.PackageName,
                     p => p.PackageName,
                     (o, p) => new { o, p })
-                .GroupBy(x => new
+                .Select(g => new SalesOrderReportVM
                 {
-                    x.o.ProductId,
-                    x.o.ProductName,
-                    x.p.PackageName,
-                    x.p.TotalPiece
-                })
-                .Select(g => new SalesReportVM
-                {
-                    ProductId = g.Key.ProductId,
-                    ProductName = g.Key.ProductName,
-                    PackageName = g.Key.PackageName,
-                    OrderCarton =
-                        g.Sum(x => x.o.TotalPiece) / g.Key.TotalPiece,
-
-                    OrderPiece =
-                        g.Sum(x => x.o.TotalPiece) % g.Key.TotalPiece,
-                    TotalPiece = g.Sum(x => x.o.TotalPiece)
+                    ProductId = g.o.ProductId,
+                    ProductName = g.o.ProductName,
+                    PackageName = g.p.PackageName,
+                    OrderCarton = g.o.OrderCarton,
+                    OrderPiece = g.o.OrderPiece,
+                    TotalPiece = g.o.TotalPiece
                 })
                 .ToList();
 
@@ -111,17 +108,22 @@ namespace OrderDisburse
             dataGridView1.Columns["OrderCarton"].HeaderText = "Order Carton";
             dataGridView1.Columns["OrderPiece"].HeaderText = "Order Piece";
             dataGridView1.Columns["TotalPiece"].HeaderText = "Total Piece";
+            dataGridView1.Columns["TotalAmount"].HeaderText = "Total Amount";
 
             dataGridView1.Columns["ReturnCarton"].HeaderText = "Ret. Carton";
             dataGridView1.Columns["ReturnOrderPiece"].HeaderText = "Ret. Order Piece";
             dataGridView1.Columns["ReturnTotalPiece"].HeaderText = "Ret. Total Piece";
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
 
         private string GenerateInvoicePDF()
         {
             string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "Summary_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".pdf");
+                "Sale Order_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".pdf");
 
             iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4);
             PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
@@ -129,7 +131,7 @@ namespace OrderDisburse
             doc.Open();
 
             // 🧾 Title
-            var title = new Paragraph("Summary\n",
+            var title = new Paragraph("Sale Order\n",
                 FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
@@ -143,10 +145,17 @@ namespace OrderDisburse
                 doc.Add(companyName);
             }
 
+            if (cmbSO.SelectedItem != null)
+            {
+                SO so = (SO)cmbSO.SelectedItem;
+                var saleOrderInfo = new Paragraph($"SO Name: {so.Name}\n\n",
+                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                saleOrderInfo.Alignment = Element.ALIGN_CENTER;
+                doc.Add(saleOrderInfo);
+            }
 
 
-            doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString("dd-MM-yyyy") + " - " +
-                                dateTimePicker2.Value.ToString("dd-MM-yyyy")));
+            doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString("dd-MM-yyyy")));
             doc.Add(new Paragraph("\n"));
 
             // 📊 Table
@@ -218,36 +227,12 @@ namespace OrderDisburse
 
             System.Diagnostics.Process.Start(psi);
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string pdfPath = GenerateInvoicePDF();
 
             PrintPDF(pdfPath);
         }
-
-        private void companyEntryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CompanyEntryForm companyEntryForm = new CompanyEntryForm();
-            companyEntryForm.ShowDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void saleOrderListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaleOrderList saleOrderListForm = new SaleOrderList();
-            saleOrderListForm.ShowDialog();
-        }
     }
-
-
 }
-

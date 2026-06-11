@@ -357,11 +357,13 @@ namespace OrderDisburse
             db.SaveChanges();
 
             MessageBox.Show("Saved successfully!");
+            btnSave.Enabled = false;
         }
 
         private void cmbSO_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvSales.Rows.Clear();
+            btnSave.Enabled = true;
         }
 
         private void cmbCompany_SelectedValueChanged(object sender, EventArgs e)

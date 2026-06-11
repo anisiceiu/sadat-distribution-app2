@@ -30,6 +30,7 @@
         {
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
             entryFormsToolStripMenuItem = new ToolStripMenuItem();
             companyEntryToolStripMenuItem = new ToolStripMenuItem();
             cartonSizeUnitEntryToolStripMenuItem = new ToolStripMenuItem();
@@ -47,7 +48,8 @@
             label2 = new Label();
             label1 = new Label();
             dataGridView1 = new DataGridView();
-            exitToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            saleOrderListToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -59,7 +61,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, entryFormsToolStripMenuItem, aboutToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, entryFormsToolStripMenuItem, toolStripMenuItem1, aboutToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1191, 28);
@@ -73,6 +75,13 @@
             fileToolStripMenuItem.Size = new Size(46, 24);
             fileToolStripMenuItem.Text = "&File";
             // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(116, 26);
+            exitToolStripMenuItem.Text = "E&xit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
             // entryFormsToolStripMenuItem
             // 
             entryFormsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { companyEntryToolStripMenuItem, cartonSizeUnitEntryToolStripMenuItem, productEntryToolStripMenuItem, sOEntryToolStripMenuItem, orderEntryToolStripMenuItem });
@@ -83,35 +92,35 @@
             // companyEntryToolStripMenuItem
             // 
             companyEntryToolStripMenuItem.Name = "companyEntryToolStripMenuItem";
-            companyEntryToolStripMenuItem.Size = new Size(218, 26);
+            companyEntryToolStripMenuItem.Size = new Size(224, 26);
             companyEntryToolStripMenuItem.Text = "Company Entry";
             companyEntryToolStripMenuItem.Click += companyEntryToolStripMenuItem_Click;
             // 
             // cartonSizeUnitEntryToolStripMenuItem
             // 
             cartonSizeUnitEntryToolStripMenuItem.Name = "cartonSizeUnitEntryToolStripMenuItem";
-            cartonSizeUnitEntryToolStripMenuItem.Size = new Size(218, 26);
+            cartonSizeUnitEntryToolStripMenuItem.Size = new Size(224, 26);
             cartonSizeUnitEntryToolStripMenuItem.Text = "Package Size Entry ";
             cartonSizeUnitEntryToolStripMenuItem.Click += cartonSizeUnitEntryToolStripMenuItem_Click;
             // 
             // productEntryToolStripMenuItem
             // 
             productEntryToolStripMenuItem.Name = "productEntryToolStripMenuItem";
-            productEntryToolStripMenuItem.Size = new Size(218, 26);
+            productEntryToolStripMenuItem.Size = new Size(224, 26);
             productEntryToolStripMenuItem.Text = "Product Entry";
             productEntryToolStripMenuItem.Click += productEntryToolStripMenuItem_Click;
             // 
             // sOEntryToolStripMenuItem
             // 
             sOEntryToolStripMenuItem.Name = "sOEntryToolStripMenuItem";
-            sOEntryToolStripMenuItem.Size = new Size(218, 26);
+            sOEntryToolStripMenuItem.Size = new Size(224, 26);
             sOEntryToolStripMenuItem.Text = "SO Entry";
             sOEntryToolStripMenuItem.Click += sOEntryToolStripMenuItem_Click;
             // 
             // orderEntryToolStripMenuItem
             // 
             orderEntryToolStripMenuItem.Name = "orderEntryToolStripMenuItem";
-            orderEntryToolStripMenuItem.Size = new Size(218, 26);
+            orderEntryToolStripMenuItem.Size = new Size(224, 26);
             orderEntryToolStripMenuItem.Text = "Order Entry";
             orderEntryToolStripMenuItem.Click += orderEntryToolStripMenuItem_Click;
             // 
@@ -231,12 +240,20 @@
             dataGridView1.Size = new Size(1191, 526);
             dataGridView1.TabIndex = 0;
             // 
-            // exitToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
-            exitToolStripMenuItem.Text = "E&xit";
-            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { saleOrderListToolStripMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(68, 24);
+            toolStripMenuItem1.Text = "Report";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
+            // saleOrderListToolStripMenuItem
+            // 
+            saleOrderListToolStripMenuItem.Name = "saleOrderListToolStripMenuItem";
+            saleOrderListToolStripMenuItem.Size = new Size(224, 26);
+            saleOrderListToolStripMenuItem.Text = "Sale Order List ";
+            saleOrderListToolStripMenuItem.Click += saleOrderListToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -283,5 +300,7 @@
         private ComboBox cmbCompany;
         private ToolStripMenuItem companyEntryToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem saleOrderListToolStripMenuItem;
     }
 }
