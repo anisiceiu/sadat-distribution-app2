@@ -91,8 +91,7 @@ namespace OrderDisburse
         x.o.ProductName,
         x.p.PackageName,
         x.p.TotalPiece,
-        x.pr.UnitPrice,
-        x.o.TotalAmount
+        x.pr.UnitPrice
     })
     .Select(g => new SalesReportVM
     {
@@ -106,7 +105,7 @@ namespace OrderDisburse
 
         UnitPrice = g.Key.UnitPrice,
 
-        TotalAmount = g.Key.TotalAmount
+        TotalAmount = (decimal)g.Sum(x => (double)x.o.TotalAmount)
     })
     .ToList();
 
