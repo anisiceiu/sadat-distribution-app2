@@ -74,47 +74,59 @@ namespace OrderDisburse
             using var db = new AppDbContext();
 
             var report = db.SaleOrders
-                .Where(x => x.CompanyId == companyId && x.OnDate.Date >= fromDate &&
-                            x.OnDate.Date <= toDate)
-                .Join(db.Packages,
-                    o => o.PackageName,
-                    p => p.PackageName,
-                    (o, p) => new { o, p })
-                .GroupBy(x => new
-                {
-                    x.o.ProductId,
-                    x.o.ProductName,
-                    x.p.PackageName,
-                    x.p.TotalPiece
-                })
-                .Select(g => new SalesReportVM
-                {
-                    ProductId = g.Key.ProductId,
-                    ProductName = g.Key.ProductName,
-                    PackageName = g.Key.PackageName,
-                    OrderCarton =
-                        g.Sum(x => x.o.TotalPiece) / g.Key.TotalPiece,
+    .Where(x => x.CompanyId == companyId &&
+                x.OnDate.Date >= fromDate &&
+                x.OnDate.Date <= toDate)
+    .Join(db.Packages,
+        o => o.PackageName,
+        p => p.PackageName,
+        (o, p) => new { o, p })
+    .Join(db.Products,
+        op => op.o.ProductId,
+        pr => pr.Id,
+        (op, pr) => new { op.o, op.p, pr })
+    .GroupBy(x => new
+    {
+        x.o.ProductId,
+        x.o.ProductName,
+        x.p.PackageName,
+        x.p.TotalPiece,
+        x.pr.UnitPrice,
+        x.o.TotalAmount
+    })
+    .Select(g => new SalesReportVM
+    {
+        ProductId = g.Key.ProductId,
+        ProductName = g.Key.ProductName,
+        PackageName = g.Key.PackageName,
 
-                    OrderPiece =
-                        g.Sum(x => x.o.TotalPiece) % g.Key.TotalPiece,
-                    TotalPiece = g.Sum(x => x.o.TotalPiece)
-                })
-                .ToList();
+        OrderCarton = g.Sum(x => x.o.TotalPiece) / g.Key.TotalPiece,
+        OrderPiece = g.Sum(x => x.o.TotalPiece) % g.Key.TotalPiece,
+        TotalPiece = g.Sum(x => x.o.TotalPiece),
+
+        UnitPrice = g.Key.UnitPrice,
+
+        TotalAmount = g.Key.TotalAmount
+    })
+    .ToList();
 
             dataGridView1.DataSource = report;
 
             // Change header names
-            dataGridView1.Columns["ProductId"].HeaderText = "Product Id";
-            dataGridView1.Columns["ProductName"].HeaderText = "Product Name";
-            dataGridView1.Columns["PackageName"].HeaderText = "Package Name";
+            dataGridView1.Columns["ProductId"].HeaderText = "Id";
+            dataGridView1.Columns["ProductName"].HeaderText = "Pro. Name";
+            dataGridView1.Columns["UnitPrice"].HeaderText = "Unit Price";
+            dataGridView1.Columns["PackageName"].HeaderText = "Pkg. Name";
 
             dataGridView1.Columns["OrderCarton"].HeaderText = "Order Carton";
             dataGridView1.Columns["OrderPiece"].HeaderText = "Order Piece";
             dataGridView1.Columns["TotalPiece"].HeaderText = "Total Piece";
+            dataGridView1.Columns["TotalAmount"].HeaderText = "Total Amount";
 
             dataGridView1.Columns["ReturnCarton"].HeaderText = "Ret. Carton";
             dataGridView1.Columns["ReturnOrderPiece"].HeaderText = "Ret. Order Piece";
             dataGridView1.Columns["ReturnTotalPiece"].HeaderText = "Ret. Total Piece";
+            dataGridView1.Columns["ReturnTotalAmount"].HeaderText = "Ret. Total Amount";
         }
 
 
@@ -154,19 +166,30 @@ namespace OrderDisburse
             table.WidthPercentage = 100;
 
             // Header
+            iTextSharp.text.Font boldHeaderFont = FontFactory.GetFont(
+                    FontFactory.COURIER,
+                    8,
+                    BaseColor.BLACK
+                );
             foreach (DataGridViewColumn column in dataGridView1.Columns)
             {
                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
                 cell.BackgroundColor = BaseColor.GREEN;
-
+                cell.Phrase.Font = boldHeaderFont;
                 table.AddCell(cell);
             }
 
             iTextSharp.text.Font boldRedFont = FontFactory.GetFont(
-                    FontFactory.HELVETICA_BOLD,
-                    12,
+                    FontFactory.TIMES_ROMAN,
+                    9,
                     BaseColor.RED
                 );
+
+            iTextSharp.text.Font regularFont = FontFactory.GetFont(
+                   FontFactory.TIMES_ROMAN,
+                   9,
+                   BaseColor.BLACK
+               );
             // Rows
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -185,7 +208,8 @@ namespace OrderDisburse
                         }
                         else
                         {
-                            table.AddCell(cell.Value?.ToString() ?? "");
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularFont));
+                            table.AddCell(pdfCell);
                         }
 
                     }

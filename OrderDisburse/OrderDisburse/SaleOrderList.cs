@@ -52,7 +52,7 @@ namespace OrderDisburse
                 .Where(so => so.CompanyId == Convert.ToInt32((cmbCompany.SelectedItem as Company).Id))
                 .Select(p => new SO
                 {
-                   Id= p.Id,
+                    Id = p.Id,
                     Name = p.Name
                 })
                 .ToList();
@@ -82,37 +82,44 @@ namespace OrderDisburse
             using var db = new AppDbContext();
 
             var report = db.SaleOrders
-                .Where(x => x.CompanyId == companyId && x.OnDate.Date >= fromDate)
-                .Join(db.Packages,
-                    o => o.PackageName,
-                    p => p.PackageName,
-                    (o, p) => new { o, p })
-                .Select(g => new SalesOrderReportVM
-                {
-                    ProductId = g.o.ProductId,
-                    ProductName = g.o.ProductName,
-                    PackageName = g.p.PackageName,
-                    OrderCarton = g.o.OrderCarton,
-                    OrderPiece = g.o.OrderPiece,
-                    TotalPiece = g.o.TotalPiece
-                })
-                .ToList();
+    .Where(x => x.CompanyId == companyId && x.OnDate.Date >= fromDate)
+    .Join(db.Packages,
+        o => o.PackageName,
+        p => p.PackageName,
+        (o, p) => new { o, p })
+    .Join(db.Products,
+        op => op.o.ProductId,
+        pr => pr.Id,
+        (op, pr) => new SalesOrderReportVM
+        {
+            ProductId = op.o.ProductId,
+            ProductName = op.o.ProductName,
+            PackageName = op.p.PackageName,
+            OrderCarton = op.o.OrderCarton,
+            OrderPiece = op.o.OrderPiece,
+            TotalPiece = op.o.TotalPiece,
+            TotalAmount = op.o.TotalAmount,
+            UnitPrice = pr.UnitPrice
+        })
+    .ToList();
 
             dataGridView1.DataSource = report;
 
             // Change header names
-            dataGridView1.Columns["ProductId"].HeaderText = "Product Id";
+            dataGridView1.Columns["ProductId"].HeaderText = "Id";
             dataGridView1.Columns["ProductName"].HeaderText = "Product Name";
-            dataGridView1.Columns["PackageName"].HeaderText = "Package Name";
+            dataGridView1.Columns["PackageName"].HeaderText = "Pkg. Name";
 
             dataGridView1.Columns["OrderCarton"].HeaderText = "Order Carton";
             dataGridView1.Columns["OrderPiece"].HeaderText = "Order Piece";
             dataGridView1.Columns["TotalPiece"].HeaderText = "Total Piece";
             dataGridView1.Columns["TotalAmount"].HeaderText = "Total Amount";
+            dataGridView1.Columns["UnitPrice"].HeaderText = "Unit Price";
 
             dataGridView1.Columns["ReturnCarton"].HeaderText = "Ret. Carton";
             dataGridView1.Columns["ReturnOrderPiece"].HeaderText = "Ret. Order Piece";
             dataGridView1.Columns["ReturnTotalPiece"].HeaderText = "Ret. Total Piece";
+            dataGridView1.Columns["ReturnTotalAmount"].HeaderText = "Ret. Total Amount";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -163,19 +170,30 @@ namespace OrderDisburse
             table.WidthPercentage = 100;
 
             // Header
+            iTextSharp.text.Font boldheaderFont = FontFactory.GetFont(
+                    FontFactory.TIMES_ROMAN,
+                    9,
+                    BaseColor.BLACK
+                );
             foreach (DataGridViewColumn column in dataGridView1.Columns)
             {
                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
                 cell.BackgroundColor = BaseColor.GREEN;
-
+                cell.Phrase.Font = boldheaderFont;
                 table.AddCell(cell);
             }
 
             iTextSharp.text.Font boldRedFont = FontFactory.GetFont(
                     FontFactory.HELVETICA_BOLD,
-                    12,
+                    9,
                     BaseColor.RED
                 );
+
+            iTextSharp.text.Font regularFont = FontFactory.GetFont(
+                   FontFactory.TIMES_ROMAN,
+                   9,
+                   BaseColor.BLACK
+               );
             // Rows
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -194,7 +212,8 @@ namespace OrderDisburse
                         }
                         else
                         {
-                            table.AddCell(cell.Value?.ToString() ?? "");
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularFont));
+                            table.AddCell(pdfCell);
                         }
 
                     }

@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             splitContainer1 = new SplitContainer();
+            txtUnitPrice = new TextBox();
+            label4 = new Label();
             cmbCompany = new ComboBox();
             label3 = new Label();
             cmbPackage = new ComboBox();
@@ -55,6 +57,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(txtUnitPrice);
+            splitContainer1.Panel1.Controls.Add(label4);
             splitContainer1.Panel1.Controls.Add(cmbCompany);
             splitContainer1.Panel1.Controls.Add(label3);
             splitContainer1.Panel1.Controls.Add(cmbPackage);
@@ -69,6 +73,22 @@
             splitContainer1.Size = new Size(1035, 604);
             splitContainer1.SplitterDistance = 436;
             splitContainer1.TabIndex = 17;
+            // 
+            // txtUnitPrice
+            // 
+            txtUnitPrice.Location = new Point(142, 165);
+            txtUnitPrice.Name = "txtUnitPrice";
+            txtUnitPrice.Size = new Size(125, 27);
+            txtUnitPrice.TabIndex = 27;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(24, 168);
+            label4.Name = "label4";
+            label4.Size = new Size(72, 20);
+            label4.TabIndex = 26;
+            label4.Text = "Unit Price";
             // 
             // cmbCompany
             // 
@@ -101,7 +121,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(306, 168);
+            btnSave.Location = new Point(314, 212);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
             btnSave.TabIndex = 22;
@@ -183,5 +203,7 @@
         private BindingSource packageBindingSource;
         private ComboBox cmbCompany;
         private Label label3;
+        private TextBox txtUnitPrice;
+        private Label label4;
     }
 }

@@ -108,12 +108,12 @@ namespace OrderDisburse
             // Total Column
             dgvSales.Columns.Add("TotalPiece", "Total Piece");
 
-            // Price Column
+            
             dgvSales.Columns.Add("OrderCarton", "Order Carton");
 
             dgvSales.Columns.Add("OrderPiece", "Order Piece");
-
-
+            // Price Column
+            dgvSales.Columns.Add("TotalAmount", "Total Amount");
 
             //// Price Column
             //dgvSales.Columns.Add("ReturnOrderCarton", "Return Order Carton");
@@ -150,11 +150,11 @@ namespace OrderDisburse
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 var cell = dgvSales.Rows[e.RowIndex].Cells["ProductId"];
-
+                
                 if (cell.Value != null)
                 {
                     int productId = Convert.ToInt32(cell.Value);
-
+                    
                     var product = _products.FirstOrDefault(x => x.Id == productId);
 
                     if (product != null)
@@ -162,6 +162,7 @@ namespace OrderDisburse
                         AppDbContext db = new AppDbContext();
                         var pkg = db.Packages.Where(c => c.Id == product.PackageId).FirstOrDefault();
                         dgvSales.Rows[e.RowIndex].Cells["PackSize"].Value = pkg.PackageName;
+                        
                         //RecalculateRow(e.RowIndex);
                     }
                 }
@@ -185,6 +186,7 @@ namespace OrderDisburse
                         var pkg = db.Packages.Where(c => c.Id == product.PackageId).FirstOrDefault();
                         dgvSales.Rows[e.RowIndex].Cells["OrderCarton"].Value = Convert.ToInt32(totalPiece / pkg.TotalPiece);
                         dgvSales.Rows[e.RowIndex].Cells["OrderPiece"].Value = totalPiece % pkg.TotalPiece;
+                        dgvSales.Rows[e.RowIndex].Cells["TotalAmount"].Value = product.UnitPrice * totalPiece;
                     }
                 }
             }
@@ -313,6 +315,7 @@ namespace OrderDisburse
             dataTable.Columns.Add("TotalPiece", typeof(int));
             dataTable.Columns.Add("OrderCarton", typeof(int));
             dataTable.Columns.Add("OrderPiece", typeof(int));
+            dataTable.Columns.Add("TotalAmount", typeof(decimal));
 
             foreach (DataGridViewRow row in dgvSales.Rows)
             {
@@ -330,6 +333,7 @@ namespace OrderDisburse
                 dr["TotalPiece"] = Convert.ToInt32(row.Cells["TotalPiece"].Value ?? 0);
                 dr["OrderCarton"] = Convert.ToInt32(row.Cells["OrderCarton"].Value ?? 0);
                 dr["OrderPiece"] = Convert.ToInt32(row.Cells["OrderPiece"].Value ?? 0);
+                dr["TotalAmount"] = Convert.ToDecimal(row.Cells["TotalAmount"].Value ?? 0);
 
                 dataTable.Rows.Add(dr);
             }
@@ -348,7 +352,8 @@ namespace OrderDisburse
                     OrderPiece = Convert.ToInt32(row["OrderPiece"]),
                     SOId = Convert.ToInt32(cmbSO.SelectedValue),
                     OnDate = dateTimePicker1.Value.Date,
-                    CompanyId = Convert.ToInt32(cmbCompany.SelectedValue)
+                    CompanyId = Convert.ToInt32(cmbCompany.SelectedValue),
+                    TotalAmount = Convert.ToDecimal(row["TotalAmount"])
                 };
 
                 db.SaleOrders.Add(item);

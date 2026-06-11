@@ -11,7 +11,7 @@ namespace OrderDisburse.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
-
+        public decimal UnitPrice { get; set; } = 0;
         public int PackageId { get; set; }
         public int CompanyId { get; set; }
     }

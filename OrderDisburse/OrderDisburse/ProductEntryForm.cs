@@ -107,8 +107,8 @@ namespace OrderDisburse
             {
                 Name = productName,
                 PackageId = Convert.ToInt32(cmbPackage.SelectedValue),
-                CompanyId = Convert.ToInt32(cmbCompany.SelectedValue) 
-
+                CompanyId = Convert.ToInt32(cmbCompany.SelectedValue), 
+                UnitPrice = Convert.ToDecimal(txtUnitPrice.Text.Trim())
             };
 
 
@@ -128,6 +128,7 @@ namespace OrderDisburse
         private void ClearForm()
         {
             txtProductName.Clear();
+            txtUnitPrice.Clear();
         }
 
         public void LoadProducts()
