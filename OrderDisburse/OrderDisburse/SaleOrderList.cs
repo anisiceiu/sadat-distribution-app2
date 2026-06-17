@@ -79,11 +79,12 @@ namespace OrderDisburse
             DateTime fromDate = dateTimePicker1.Value.Date;
 
             int companyId = Convert.ToInt32(cmbCompany.SelectedValue);
+            int soId = Convert.ToInt32(cmbSO.SelectedValue);
 
             using var db = new AppDbContext();
 
             var report = db.SaleOrders
-    .Where(x => x.CompanyId == companyId && x.OnDate.Date >= fromDate)
+    .Where(x => x.CompanyId == companyId && x.SOId == soId && x.OnDate.Date >= fromDate)
     .Join(db.Packages,
         o => o.PackageName,
         p => p.PackageName,
