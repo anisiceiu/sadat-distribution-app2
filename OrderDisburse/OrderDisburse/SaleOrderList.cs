@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OrderDisburse
 {
@@ -222,6 +223,35 @@ namespace OrderDisburse
 
             doc.Add(table);
 
+            // -------------------- SUMMARY TABLE (RIGHT ALIGNED) --------------------
+            iTextSharp.text.Font font = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10);
+            PdfPTable summaryTable = new PdfPTable(2);
+            summaryTable.SetTotalWidth(new float[] { 100f, 80f }); // control width
+            summaryTable.LockedWidth = true;
+            summaryTable.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Total received (TK)", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Total return (TK)", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Total sales", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Damage", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Disbursed money", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Deposit/collected", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+
+            summaryTable.AddCell(new PdfPCell(new Phrase("Due", font)));
+            summaryTable.AddCell(new PdfPCell(new Phrase("", font)));
+            // add summary table
+            doc.Add(summaryTable);
 
             var prg2 = new Paragraph("\nReceived By\n");
             prg2.Alignment = Element.ALIGN_RIGHT;
@@ -230,6 +260,8 @@ namespace OrderDisburse
             var prg1 = new Paragraph("__________________________");
             prg1.Alignment = Element.ALIGN_RIGHT;
             doc.Add(prg1);
+
+
 
             doc.Close();
 
