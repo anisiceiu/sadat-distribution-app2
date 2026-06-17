@@ -147,7 +147,7 @@ namespace OrderDisburse
             if (cmbCompany.SelectedItem != null)
             {
                 Company cname = (Company)cmbCompany.SelectedItem;
-                var companyName = new Paragraph($"{cname.CompanyName}\n\n",
+                var companyName = new Paragraph($"{cname.CompanyName}\n",
                 FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
                 companyName.Alignment = Element.ALIGN_CENTER;
                 doc.Add(companyName);
@@ -156,7 +156,7 @@ namespace OrderDisburse
             if (cmbSO.SelectedItem != null)
             {
                 SO so = (SO)cmbSO.SelectedItem;
-                var saleOrderInfo = new Paragraph($"SO Name: {so.Name}\n\n",
+                var saleOrderInfo = new Paragraph($"SO Name: {so.Name}\n",
                     FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
                 saleOrderInfo.Alignment = Element.ALIGN_CENTER;
                 doc.Add(saleOrderInfo);
@@ -253,7 +253,16 @@ namespace OrderDisburse
             // add summary table
             doc.Add(summaryTable);
 
-            var prg2 = new Paragraph("\nReceived By\n");
+
+            var prg21 = new Paragraph("\nManager\n");
+            prg21.Alignment = Element.ALIGN_LEFT;
+            doc.Add(prg21);
+
+            var prg11 = new Paragraph("__________________________");
+            prg11.Alignment = Element.ALIGN_LEFT;
+            doc.Add(prg11);
+
+            var prg2 = new Paragraph("DOR\n");
             prg2.Alignment = Element.ALIGN_RIGHT;
             doc.Add(prg2);
 
