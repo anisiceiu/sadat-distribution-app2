@@ -144,6 +144,7 @@ namespace OrderDisburse
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
 
+            string invoiceNo = $"INV-CompanyIdSOId{dateTimePicker1.Value.ToString("yyyyMMdd")}";
             if (cmbCompany.SelectedItem != null)
             {
                 Company cname = (Company)cmbCompany.SelectedItem;
@@ -151,6 +152,8 @@ namespace OrderDisburse
                 FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
                 companyName.Alignment = Element.ALIGN_CENTER;
                 doc.Add(companyName);
+
+                invoiceNo = invoiceNo.Replace("CompanyId", cname.Id.ToString());
             }
 
             if (cmbSO.SelectedItem != null)
@@ -160,11 +163,33 @@ namespace OrderDisburse
                     FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
                 saleOrderInfo.Alignment = Element.ALIGN_CENTER;
                 doc.Add(saleOrderInfo);
+
+                invoiceNo = invoiceNo.Replace("SOId", so.Id.ToString());
             }
 
+            PdfPTable tablehead = new PdfPTable(2);
+            tablehead.WidthPercentage = 100;
+            tablehead.SetWidths(new float[] { 1f, 1f });
 
-            doc.Add(new Paragraph("Date: " + dateTimePicker1.Value.ToString("dd-MM-yyyy")));
+            // Left cell (Date)
+            PdfPCell leftCell = new PdfPCell(new Phrase("Date: " + dateTimePicker1.Value.ToString("dd-MM-yyyy")));
+            leftCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            leftCell.HorizontalAlignment = Element.ALIGN_LEFT;
+
+            // Right cell (Invoice No)
+            PdfPCell rightCell = new PdfPCell(new Phrase("Invoice No: " + invoiceNo));
+            rightCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            rightCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+            tablehead.AddCell(leftCell);
+            tablehead.AddCell(rightCell);
+
+            doc.Add(tablehead);
+
             doc.Add(new Paragraph("\n"));
+
+
+            
 
             // 📊 Table
             PdfPTable table = new PdfPTable(dataGridView1.Columns.Count);
@@ -254,21 +279,29 @@ namespace OrderDisburse
             doc.Add(summaryTable);
 
 
-            var prg21 = new Paragraph("\nManager\n");
-            prg21.Alignment = Element.ALIGN_LEFT;
-            doc.Add(prg21);
 
-            var prg11 = new Paragraph("__________________________");
-            prg11.Alignment = Element.ALIGN_LEFT;
-            doc.Add(prg11);
+            doc.Add(new Paragraph("\n"));
 
-            var prg2 = new Paragraph("DOR\n");
-            prg2.Alignment = Element.ALIGN_RIGHT;
-            doc.Add(prg2);
+            PdfPTable tablefoot = new PdfPTable(2);
+            tablefoot.WidthPercentage = 100;
+            tablefoot.SetWidths(new float[] { 1f, 1f });
 
-            var prg1 = new Paragraph("__________________________");
-            prg1.Alignment = Element.ALIGN_RIGHT;
-            doc.Add(prg1);
+            // Left cell (Date)
+            PdfPCell leftCellfoot = new PdfPCell(new Phrase("Manager \n__________________________"));
+            leftCellfoot.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            leftCellfoot.HorizontalAlignment = Element.ALIGN_LEFT;
+
+            // Right cell (Invoice No)
+            PdfPCell rightCellfoot = new PdfPCell(new Phrase("DSR \n_______________________________"));
+            rightCellfoot.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            rightCellfoot.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+            tablefoot.AddCell(leftCellfoot);
+            tablefoot.AddCell(rightCellfoot);
+
+            doc.Add(tablefoot);
+
+            doc.Add(new Paragraph("\n"));
 
 
 
