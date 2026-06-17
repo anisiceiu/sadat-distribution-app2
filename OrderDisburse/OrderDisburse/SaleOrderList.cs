@@ -105,6 +105,15 @@ namespace OrderDisburse
         })
     .ToList();
 
+            decimal totalAmount = report.Sum(x => x.TotalAmount);
+            report.Add(new SalesOrderReportVM
+            {
+                ProductName = "TOTAL",
+                OrderCarton = 0,
+                TotalPiece = 0,
+                TotalAmount = totalAmount
+            });
+
             dataGridView1.DataSource = report;
 
             // Change header names
@@ -190,7 +199,7 @@ namespace OrderDisburse
             doc.Add(new Paragraph("\n"));
 
 
-            
+
 
             // 📊 Table
             PdfPTable table = new PdfPTable(dataGridView1.Columns.Count);

@@ -109,6 +109,14 @@ namespace OrderDisburse
     })
     .ToList();
 
+            decimal totalAmount = report.Sum(x => x.TotalAmount);
+            report.Add(new SalesReportVM
+            {
+                ProductName = "TOTAL",
+                OrderCarton = 0,
+                TotalPiece = 0,
+                TotalAmount = totalAmount
+            });
             dataGridView1.DataSource = report;
 
             // Change header names
