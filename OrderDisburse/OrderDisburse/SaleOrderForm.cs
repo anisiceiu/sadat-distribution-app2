@@ -307,6 +307,21 @@ namespace OrderDisburse
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+
+            int companyId = Convert.ToInt32(cmbCompany.SelectedValue);
+            int soId = Convert.ToInt32(cmbSO.SelectedValue);
+
+            if(companyId == 0)
+            {
+                MessageBox.Show("Please select a company.");
+                return;
+            }
+
+            if (soId == 0)
+            {
+                MessageBox.Show("Please select a SO.");
+                return;
+            }
             // Rows
             DataTable dataTable = new DataTable();
             dataTable.Columns.Add("ProductId", typeof(int));
