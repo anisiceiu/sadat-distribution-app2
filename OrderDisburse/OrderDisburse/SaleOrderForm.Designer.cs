@@ -55,6 +55,7 @@
             dgvSales.RowHeadersWidth = 51;
             dgvSales.Size = new Size(1138, 381);
             dgvSales.TabIndex = 0;
+            dgvSales.CellValidating += dgvSales_CellValidating;
             dgvSales.CellValueChanged += dgvSales_CellValueChanged;
             dgvSales.EditingControlShowing += dgvSales_EditingControlShowing;
             // 
