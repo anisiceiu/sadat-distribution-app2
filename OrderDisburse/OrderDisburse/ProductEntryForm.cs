@@ -95,11 +95,11 @@ namespace OrderDisburse
 
 
             bool exists = db.Products
-                .Any(x => x.Name.ToLower() == productName.ToLower());
+                .Any(x => x.Name.Trim().ToLower() == productName.Trim().ToLower());
 
             if (exists)
             {
-                MessageBox.Show("Product already exists");
+                MessageBox.Show("Product name already exists");
                 return;
             }
 
