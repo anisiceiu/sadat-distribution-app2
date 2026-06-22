@@ -148,9 +148,14 @@ namespace OrderDisburse
 
             doc.Open();
 
-            // 🧾 Title
-            var title = new Paragraph("Sale Order\n",
-                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18));
+            // 🧾 Title 
+            var title1 = new Paragraph("Sadat Distribution",
+               FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18));
+            title1.Alignment = Element.ALIGN_CENTER;
+            doc.Add(title1);
+
+            var title = new Paragraph("Sale Order",
+                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
 
