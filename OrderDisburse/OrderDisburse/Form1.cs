@@ -201,6 +201,11 @@ namespace OrderDisburse
                    11,
                    BaseColor.BLACK
                );
+            iTextSharp.text.Font regularNameFont = FontFactory.GetFont(
+                   FontFactory.TIMES_ROMAN,
+                   9,
+                   BaseColor.BLACK
+               );
             // Rows
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -209,18 +214,44 @@ namespace OrderDisburse
                     foreach (DataGridViewCell cell in row.Cells)
                     {
 
+                        if (cell.ColumnIndex == 0)
+                        {
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularFont));
+                            pdfCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                            pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
-                        if (cell.ColumnIndex == 3)
+                            table.AddCell(pdfCell);
+                        }
+                        else if(cell.ColumnIndex == 1)
+                        {
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularNameFont));
+                            pdfCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                            pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+
+                            table.AddCell(pdfCell);
+                        }
+
+                        else if (cell.ColumnIndex == 3)
+                        {
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularFont));
+                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+
+                            table.AddCell(pdfCell);
+                        }
+                        else if (cell.ColumnIndex == 4)
                         {
                             PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", boldRedFont));
-                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
 
                             table.AddCell(pdfCell);
                         }
                         else
                         {
                             PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularFont));
-                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            pdfCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                             table.AddCell(pdfCell);
                         }
 
