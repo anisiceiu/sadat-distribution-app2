@@ -213,7 +213,7 @@ namespace OrderDisburse
             // Header
             iTextSharp.text.Font boldheaderFont = FontFactory.GetFont(
                     FontFactory.TIMES_ROMAN,
-                    9,
+                    11,
                     BaseColor.BLACK
                 );
             foreach (DataGridViewColumn column in dataGridView1.Columns)
@@ -226,13 +226,13 @@ namespace OrderDisburse
 
             iTextSharp.text.Font boldRedFont = FontFactory.GetFont(
                     FontFactory.HELVETICA_BOLD,
-                    9,
+                    11,
                     BaseColor.RED
                 );
 
             iTextSharp.text.Font regularFont = FontFactory.GetFont(
                    FontFactory.TIMES_ROMAN,
-                   9,
+                   11,
                    BaseColor.BLACK
                );
             // Rows
@@ -247,13 +247,14 @@ namespace OrderDisburse
                         if (cell.ColumnIndex == 3)
                         {
                             PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", boldRedFont));
-                            //pdfCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
 
                             table.AddCell(pdfCell);
                         }
                         else
                         {
                             PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularFont));
+                            pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                             table.AddCell(pdfCell);
                         }
 
@@ -264,7 +265,7 @@ namespace OrderDisburse
             doc.Add(table);
 
             // -------------------- SUMMARY TABLE (RIGHT ALIGNED) --------------------
-            iTextSharp.text.Font font = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10);
+            iTextSharp.text.Font font = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 11);
             PdfPTable summaryTable = new PdfPTable(2);
             summaryTable.SetTotalWidth(new float[] { 100f, 80f }); // control width
             summaryTable.LockedWidth = true;
