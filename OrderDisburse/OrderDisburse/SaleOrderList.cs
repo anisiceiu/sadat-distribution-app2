@@ -84,7 +84,7 @@ namespace OrderDisburse
             using var db = new AppDbContext();
 
             var report = db.SaleOrders
-    .Where(x => x.CompanyId == companyId && x.SOId == soId && x.OnDate.Date >= fromDate)
+    .Where(x => x.CompanyId == companyId && x.SOId == soId && x.OnDate.Date == fromDate)
     .Join(db.Packages,
         o => o.PackageName,
         p => p.PackageName,
