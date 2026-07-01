@@ -182,6 +182,28 @@ namespace OrderDisburse
                 invoiceNo = invoiceNo.Replace("SOId", so.Id.ToString());
             }
 
+            //DSR and market
+            PdfPTable tablehead1 = new PdfPTable(2);
+            tablehead1.WidthPercentage = 100;
+            tablehead1.SetWidths(new float[] { 1f, 1f });
+
+            // Left cell (Date)
+            PdfPCell leftCell1 = new PdfPCell(new Phrase("DSR: "));
+            leftCell1.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            leftCell1.HorizontalAlignment = Element.ALIGN_LEFT;
+
+            // Right cell (Invoice No)
+            PdfPCell rightCell1 = new PdfPCell(new Phrase("Market:_________________"));
+            rightCell1.Border = iTextSharp.text.Rectangle.NO_BORDER;
+            rightCell1.HorizontalAlignment = Element.ALIGN_RIGHT;
+
+            tablehead1.AddCell(leftCell1);
+            tablehead1.AddCell(rightCell1);
+
+            doc.Add(tablehead1);
+
+            //invoice date
+
             PdfPTable tablehead = new PdfPTable(2);
             tablehead.WidthPercentage = 100;
             tablehead.SetWidths(new float[] { 1f, 1f });
@@ -202,9 +224,6 @@ namespace OrderDisburse
             doc.Add(tablehead);
 
             doc.Add(new Paragraph("\n"));
-
-
-
 
             // 📊 Table
             PdfPTable table = new PdfPTable(dataGridView1.Columns.Count);
