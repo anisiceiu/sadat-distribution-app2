@@ -150,12 +150,12 @@ namespace OrderDisburse
 
             // 🧾 Title 
             var title1 = new Paragraph("Sadat Distribution",
-               FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18));
+               FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
             title1.Alignment = Element.ALIGN_CENTER;
             doc.Add(title1);
 
             var title = new Paragraph("Sale Order",
-                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12));
             title.Alignment = Element.ALIGN_CENTER;
             doc.Add(title);
 
@@ -164,7 +164,7 @@ namespace OrderDisburse
             {
                 Company cname = (Company)cmbCompany.SelectedItem;
                 var companyName = new Paragraph($"{cname.CompanyName}\n",
-                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12));
                 companyName.Alignment = Element.ALIGN_CENTER;
                 doc.Add(companyName);
 
@@ -175,7 +175,7 @@ namespace OrderDisburse
             {
                 SO so = (SO)cmbSO.SelectedItem;
                 var saleOrderInfo = new Paragraph($"SO Name: {so.Name}\n",
-                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14));
+                    FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12));
                 saleOrderInfo.Alignment = Element.ALIGN_CENTER;
                 doc.Add(saleOrderInfo);
 
