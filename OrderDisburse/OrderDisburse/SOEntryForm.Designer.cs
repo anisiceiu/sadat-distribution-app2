@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
+            cmbCompany = new ComboBox();
+            label3 = new Label();
             txtSOContactNo = new TextBox();
             btnSave = new Button();
             txtSOName = new TextBox();
             label2 = new Label();
             label1 = new Label();
             dgvSOs = new DataGridView();
-            label3 = new Label();
-            cmbCompany = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -67,6 +67,24 @@
             splitContainer1.Size = new Size(1047, 450);
             splitContainer1.SplitterDistance = 349;
             splitContainer1.TabIndex = 17;
+            // 
+            // cmbCompany
+            // 
+            cmbCompany.FormattingEnabled = true;
+            cmbCompany.Location = new Point(148, 35);
+            cmbCompany.Name = "cmbCompany";
+            cmbCompany.Size = new Size(173, 28);
+            cmbCompany.TabIndex = 25;
+            cmbCompany.SelectedValueChanged += cmbCompany_SelectedValueChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(21, 35);
+            label3.Name = "label3";
+            label3.Size = new Size(116, 20);
+            label3.TabIndex = 24;
+            label3.Text = "Company Name";
             // 
             // txtSOContactNo
             // 
@@ -124,23 +142,6 @@
             dgvSOs.RowHeadersWidth = 51;
             dgvSOs.Size = new Size(694, 450);
             dgvSOs.TabIndex = 7;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(21, 35);
-            label3.Name = "label3";
-            label3.Size = new Size(116, 20);
-            label3.TabIndex = 24;
-            label3.Text = "Company Name";
-            // 
-            // cmbCompany
-            // 
-            cmbCompany.FormattingEnabled = true;
-            cmbCompany.Location = new Point(148, 35);
-            cmbCompany.Name = "cmbCompany";
-            cmbCompany.Size = new Size(173, 28);
-            cmbCompany.TabIndex = 25;
             // 
             // SOEntryForm
             // 

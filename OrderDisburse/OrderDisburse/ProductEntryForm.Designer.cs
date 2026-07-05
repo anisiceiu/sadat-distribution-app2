@@ -99,6 +99,7 @@
             cmbCompany.Size = new Size(266, 28);
             cmbCompany.TabIndex = 25;
             cmbCompany.ValueMember = "Id";
+            cmbCompany.SelectedValueChanged += cmbCompany_SelectedValueChanged;
             // 
             // label3
             // 

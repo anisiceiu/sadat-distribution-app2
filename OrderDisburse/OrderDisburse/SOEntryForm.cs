@@ -16,8 +16,9 @@ namespace OrderDisburse
         public SOEntryForm()
         {
             InitializeComponent();
-            LoadSOs();
             LoadCompanyCombo();
+            LoadSOs();
+           
         }
 
         private void LoadCompanyCombo()
@@ -44,7 +45,7 @@ namespace OrderDisburse
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ClearForm()
@@ -56,8 +57,9 @@ namespace OrderDisburse
         public void LoadSOs()
         {
             using var db = new AppDbContext();
-
-            dgvSOs.DataSource = db.SOs.ToList();
+            Company? company = cmbCompany.SelectedItem == null ? null : cmbCompany.SelectedItem as Company;
+            int selectedCompanyId = Convert.ToInt32(company?.Id);
+            dgvSOs.DataSource = db.SOs.Where(so => so.CompanyId == selectedCompanyId).ToList();
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
@@ -114,6 +116,11 @@ namespace OrderDisburse
 
             MessageBox.Show("Saved Successfully");
 
+        }
+
+        private void cmbCompany_SelectedValueChanged(object sender, EventArgs e)
+        {
+            LoadSOs();
         }
     }
 }

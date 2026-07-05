@@ -17,8 +17,8 @@ namespace OrderDisburse
         {
             InitializeComponent();
             LoadPackagesToCombo();
-            LoadProducts();
             LoadCompanyCombo();
+            LoadProducts();
         }
 
         private void LoadCompanyCombo()
@@ -107,7 +107,7 @@ namespace OrderDisburse
             {
                 Name = productName,
                 PackageId = Convert.ToInt32(cmbPackage.SelectedValue),
-                CompanyId = Convert.ToInt32(cmbCompany.SelectedValue), 
+                CompanyId = Convert.ToInt32(cmbCompany.SelectedValue),
                 UnitPrice = Convert.ToDecimal(txtUnitPrice.Text.Trim())
             };
 
@@ -134,8 +134,8 @@ namespace OrderDisburse
         public void LoadProducts()
         {
             using var db = new AppDbContext();
-
-            dgvProducts.DataSource = db.Products.ToList();
+            int companyId = Convert.ToInt32(cmbCompany.SelectedValue);
+            dgvProducts.DataSource = db.Products.Where(p => p.CompanyId == companyId).ToList();
 
             if (!dgvProducts.Columns.Contains("Delete"))
             {
@@ -162,7 +162,7 @@ namespace OrderDisburse
 
                 if (result == DialogResult.Yes)
                 {
-                    
+
                     var item = (Product)dgvProducts.Rows[e.RowIndex].DataBoundItem;
 
                     AppDbContext context = new AppDbContext();
@@ -174,6 +174,11 @@ namespace OrderDisburse
                     MessageBox.Show("Product Deleted successfully");
                 }
             }
+        }
+
+        private void cmbCompany_SelectedValueChanged(object sender, EventArgs e)
+        {
+            LoadProducts();
         }
     }
 }
