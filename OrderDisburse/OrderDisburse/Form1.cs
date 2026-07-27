@@ -222,7 +222,7 @@ namespace OrderDisburse
 
                             table.AddCell(pdfCell);
                         }
-                        else if(cell.ColumnIndex == 1)
+                        else if (cell.ColumnIndex == 1)
                         {
                             PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? "", regularNameFont));
                             pdfCell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -312,6 +312,12 @@ namespace OrderDisburse
         {
             SaleOrderList saleOrderListForm = new SaleOrderList();
             saleOrderListForm.ShowDialog();
+        }
+
+        private void editProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditProductForm editProductForm = new EditProductForm();
+            editProductForm.ShowDialog();
         }
     }
 

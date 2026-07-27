@@ -37,6 +37,8 @@
             productEntryToolStripMenuItem = new ToolStripMenuItem();
             sOEntryToolStripMenuItem = new ToolStripMenuItem();
             orderEntryToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            saleOrderListToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             lblCompany = new Label();
@@ -48,8 +50,7 @@
             label2 = new Label();
             label1 = new Label();
             dataGridView1 = new DataGridView();
-            toolStripMenuItem1 = new ToolStripMenuItem();
-            saleOrderListToolStripMenuItem = new ToolStripMenuItem();
+            editProductToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -84,7 +85,7 @@
             // 
             // entryFormsToolStripMenuItem
             // 
-            entryFormsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { companyEntryToolStripMenuItem, cartonSizeUnitEntryToolStripMenuItem, productEntryToolStripMenuItem, sOEntryToolStripMenuItem, orderEntryToolStripMenuItem });
+            entryFormsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { companyEntryToolStripMenuItem, cartonSizeUnitEntryToolStripMenuItem, productEntryToolStripMenuItem, sOEntryToolStripMenuItem, orderEntryToolStripMenuItem, editProductToolStripMenuItem });
             entryFormsToolStripMenuItem.Name = "entryFormsToolStripMenuItem";
             entryFormsToolStripMenuItem.Size = new Size(100, 24);
             entryFormsToolStripMenuItem.Text = "&Entry Forms";
@@ -123,6 +124,21 @@
             orderEntryToolStripMenuItem.Size = new Size(224, 26);
             orderEntryToolStripMenuItem.Text = "Order Entry";
             orderEntryToolStripMenuItem.Click += orderEntryToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { saleOrderListToolStripMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(68, 24);
+            toolStripMenuItem1.Text = "Report";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
+            // saleOrderListToolStripMenuItem
+            // 
+            saleOrderListToolStripMenuItem.Name = "saleOrderListToolStripMenuItem";
+            saleOrderListToolStripMenuItem.Size = new Size(192, 26);
+            saleOrderListToolStripMenuItem.Text = "Sale Order List ";
+            saleOrderListToolStripMenuItem.Click += saleOrderListToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
@@ -240,20 +256,12 @@
             dataGridView1.Size = new Size(1191, 526);
             dataGridView1.TabIndex = 0;
             // 
-            // toolStripMenuItem1
+            // editProductToolStripMenuItem
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { saleOrderListToolStripMenuItem });
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(68, 24);
-            toolStripMenuItem1.Text = "Report";
-            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
-            // 
-            // saleOrderListToolStripMenuItem
-            // 
-            saleOrderListToolStripMenuItem.Name = "saleOrderListToolStripMenuItem";
-            saleOrderListToolStripMenuItem.Size = new Size(224, 26);
-            saleOrderListToolStripMenuItem.Text = "Sale Order List ";
-            saleOrderListToolStripMenuItem.Click += saleOrderListToolStripMenuItem_Click;
+            editProductToolStripMenuItem.Name = "editProductToolStripMenuItem";
+            editProductToolStripMenuItem.Size = new Size(224, 26);
+            editProductToolStripMenuItem.Text = "Edit Product";
+            editProductToolStripMenuItem.Click += editProductToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -302,5 +310,6 @@
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem saleOrderListToolStripMenuItem;
+        private ToolStripMenuItem editProductToolStripMenuItem;
     }
 }
