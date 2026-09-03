@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 ; Non-commercial use only
 
-#define MyAppName "Sadat Distribution"
+#define MyAppName "Sadat Distribution Ltd"
 #define MyAppVersion "1.5"
-#define MyAppPublisher "Sadat Distribution, Inc."
+#define MyAppPublisher "My Company, Inc."
 #define MyAppURL "https://www.example.com/"
 #define MyAppExeName "OrderDisburse.exe"
 #define MyAppAssocName MyAppName + " File"
@@ -14,7 +14,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{553A9A1B-B328-4280-BBFF-247FB1E1C0D7}
+AppId={{9BBFE22C-CAB3-4162-9CB0-BD97E2459BB1}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -50,7 +50,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\D3DCompiler_47_cor3.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\e_sqlite3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\OrderDisburse.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\OrderDisburse.pdb"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\PenImc_cor3.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\Projects\Asad vai\sadat-distribution-app2\OrderDisburse\OrderDisburse\bin\Release\net8.0-windows\publish\win-x64\PresentationNative_cor3.dll"; DestDir: "{app}"; Flags: ignoreversion
